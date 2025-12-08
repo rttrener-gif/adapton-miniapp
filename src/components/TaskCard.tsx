@@ -1,78 +1,47 @@
-import React from 'react';
+import React from "react";
+import "../styles.css";
 
-export type Task = {
-  id: number;
+type TaskStatus = "not_done" | "done_student" | "done_ou";
+
+interface TaskCardProps {
   title: string;
-  minutes: number;
-  studentDone: boolean;
-  ouDone: boolean;
-};
+  duration: string;
+  status: TaskStatus;
+  onClick?: () => void;
+}
 
-type Props = {
-  task: Task;
-  onToggleStudent?: (id: number) => void;
-};
+export const TaskCard: React.FC<TaskCardProps> = ({
+  title,
+  duration,
+  status,
+  onClick,
+}) => {
+  const isDoneByStudent = status === "done_student" || status === "done_ou";
+  const isDoneByOu = status === "done_ou";
 
-export const TaskCard: React.FC<Props> = ({ task, onToggleStudent }) => {
   return (
-    <div
-      className="card"
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        marginBottom: 12,
-        paddingBlock: 12,
-      }}
+    <button
+      type="button"
+      className="task-card"
+      onClick={onClick}
     >
-      {/* слева круг-прогресс (для MVP просто обводка) */}
-      <div
-        style={{
-          width: 32,
-          height: 32,
-          borderRadius: '999px',
-          border: '2px solid #7b3cff',
-          marginRight: 12,
-        }}
-      />
-      <div style={{ flex: 1 }}>
-        <div
-          style={{
-            fontSize: 15,
-            fontWeight: 600,
-            color: '#111827',
-            marginBottom: 2,
-          }}
-        >
-          {task.title}
+      <div className="task-left">
+        <div className="task-circle">
+          {isDoneByStudent && <span className="task-check">✓</span>}
         </div>
-        <div style={{ fontSize: 12, color: '#6b7280' }}>
-          {task.minutes} минут
+        <div className="task-text">
+          <div className="task-title">{title}</div>
+          <div className="task-subtitle">{duration}</div>
         </div>
       </div>
 
-      {/* первая галочка – ученик */}
-      <button
-        onClick={() => onToggleStudent?.(task.id)}
-        style={{
-          width: 22,
-          height: 22,
-          borderRadius: '999px',
-          border: '2px solid #d1d5db',
-          marginRight: 8,
-          background: task.studentDone ? '#22c55e' : 'transparent',
-        }}
-      />
-
-      {/* вторая галочка – подтверждение ОУ */}
-      <div
-        style={{
-          width: 22,
-          height: 22,
-          borderRadius: '999px',
-          border: '2px solid #d1d5db',
-          background: task.ouDone ? '#22c55e' : 'transparent',
-        }}
-      />
-    </div>
+      <div className="task-right">
+        {/* две «точки» (как две галочки): левая — отметка ученика, правая — по данным ОУ */}
+        <div className="task-double-check">
+          <span className={isDoneByStudent ? "dot done" : "dot"} />
+          <span className={isDoneByOu ? "dot done" : "dot"} />
+        </div>
+      </div>
+    </button>
   );
 };

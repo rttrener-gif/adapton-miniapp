@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
-import { BottomNav } from '../components/BottomNav';
-import { TaskCard } from '../components/TaskCard';
-import type { Task } from '../components/TaskCard';
+import React, { useMemo } from "react";
+import "../styles.css";
+import { TaskCard } from "../components/TaskCard";
+
+export type StudentTask = {
+  id: string;
+  title: string;
+  duration: string;
+  status: "not_done" | "done_student" | "done_ou";
+  ouUrl?: string;
+};
 
 const studentTasks: StudentTask[] = [
   {
@@ -54,157 +61,71 @@ const studentTasks: StudentTask[] = [
 ];
 
 export const StudentHome: React.FC = () => {
-  const [tasks, setTasks] = useState<Task[]>(initialTasks);
-  const [activeTab, setActiveTab] =
-    useState<'home' | 'schedule' | 'messages' | 'files'>('home');
+  const progress = useMemo(() => {
+    const total = studentTasks.length;
+    const doneByOu = studentTasks.filter((t) => t.status === "done_ou").length;
+    return Math.round((doneByOu / total) * 100);
+  }, []);
 
-  const toggleStudentDone = (id: number) => {
-    setTasks(prev =>
-      prev.map(t =>
-        t.id === id ? { ...t, studentDone: !t.studentDone } : t
-      )
+  const handleOpenTask = (task: StudentTask) => {
+    if (!task.ouUrl) return;
+
+    const ok = window.confirm(
+      "Онлайн-университет открывается только:\n\n• в Яндекс.Браузере, или\n• в браузере с установленным сертификатом Минцифры.\n\nПродолжить переход?"
     );
-  };
 
-  const renderContent = () => {
-    if (activeTab === 'home') {
-      return (
-        <>
-          {/* приветствие */}
-          <div style={{ padding: '20px 20px 12px' }}>
-            <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 4 }}>
-              Привет, Ирен 👋
-            </div>
-            <div style={{ fontSize: 13 }}>Добро пожаловать в Ростелеком!</div>
-          </div>
-
-          {/* дни обучения (заглушка) */}
-          <div style={{ display: 'flex', gap: 8, padding: '0 20px 16px' }}>
-            {['3 Сб', '4 Вс', '5 Пн', '6 Вт', '7 Ср', '8 Чт', '9 Пт'].map(
-              (d, idx) => (
-                <div
-                  key={d}
-                  style={{
-                    flex: 1,
-                    padding: '8px 4px',
-                    borderRadius: 16,
-                    textAlign: 'center',
-                    background: idx === 0 ? '#fff' : 'rgba(255,255,255,0.14)',
-                    color: idx === 0 ? '#ef4444' : '#f9fafb',
-                    fontSize: 11,
-                    fontWeight: idx === 0 ? 700 : 500,
-                  }}
-                >
-                  {d}
-                </div>
-              )
-            )}
-          </div>
-
-          {/* первый день обучения */}
-          <div style={{ padding: '0 20px 16px' }}>
-            <div className="card">
-              <div
-                style={{
-                  fontSize: 15,
-                  fontWeight: 600,
-                  color: '#111827',
-                  marginBottom: 6,
-                }}
-              >
-                Первый день обучения
-              </div>
-              <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 8 }}>
-                Осталось 24 часа
-              </div>
-              <div
-                style={{
-                  height: 4,
-                  borderRadius: 999,
-                  background: '#e5e7eb',
-                }}
-              >
-                <div
-                  style={{
-                    width: '40%',
-                    height: '100%',
-                    borderRadius: 999,
-                    background:
-                      'linear-gradient(90deg,#7b3cff,#ff8a3c)',
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* задачи */}
-          <div
-            style={{
-              padding: '0 20px 8px',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <div style={{ fontSize: 14, fontWeight: 600 }}>Задачи</div>
-            <div style={{ fontSize: 12, color: '#e5e7eb' }}>
-              Посмотреть все
-            </div>
-          </div>
-
-          <div
-            style={{
-              padding: '0 20px 16px',
-              flex: 1,
-              overflowY: 'auto',
-            }}
-          >
-            {tasks.map(t => (
-              <TaskCard
-                key={t.id}
-                task={t}
-                onToggleStudent={toggleStudentDone}
-              />
-            ))}
-          </div>
-        </>
-      );
+    if (ok) {
+      window.open(task.ouUrl, "_blank");
     }
-
-    if (activeTab === 'schedule') {
-      return (
-        <div style={{ padding: 20 }}>
-          <div className="card">Здесь будет расписание практикумов</div>
-        </div>
-      );
-    }
-    if (activeTab === 'messages') {
-      return (
-        <div style={{ padding: 20 }}>
-          <div className="card">Здесь будут сообщения</div>
-        </div>
-      );
-    }
-    return (
-      <div style={{ padding: 20 }}>
-        <div className="card">Здесь будут файлы и памятки</div>
-      </div>
-    );
   };
 
   return (
-    <div className="student-shell">
-      <div
-        style={{
-          flex: 1,
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        {renderContent()}
-      </div>
-      <BottomNav active={activeTab} onChange={setActiveTab} />
+    <div className="student-root">
+      <header className="student-header">
+        <div className="ou-badge">
+          <span>онлайн университет</span>
+          <span className="ou-b2c">B2C</span>
+        </div>
+
+        <h1 className="student-title">Привет, Ирен 👋</h1>
+        <p className="student-subtitle">Добро пожаловать в Ростелеком!</p>
+
+        <div className="student-day-card">
+          <div className="student-day-header">
+            <span>Первый день обучения</span>
+            <span className="student-day-time">Осталось 24 часа</span>
+          </div>
+          <div className="student-day-progress">
+            <div
+              className="student-day-progress-bar"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
+      </header>
+
+      <main className="student-main">
+        <div className="student-section-header">
+          <span>Задачи</span>
+          <button className="student-link-button" type="button">
+            Посмотреть все
+          </button>
+        </div>
+
+        <div className="student-tasks-list">
+          {studentTasks.map((task) => (
+            <TaskCard
+              key={task.id}
+              title={task.title}
+              duration={task.duration}
+              status={task.status}
+              onClick={() => handleOpenTask(task)}
+            />
+          ))}
+        </div>
+      </main>
     </div>
   );
 };
+
+export default StudentHome;
