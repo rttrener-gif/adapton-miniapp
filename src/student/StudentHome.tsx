@@ -3,34 +3,53 @@ import { BottomNav } from '../components/BottomNav';
 import { TaskCard } from '../components/TaskCard';
 import type { Task } from '../components/TaskCard';
 
-const initialTasks: Task[] = [
+const studentTasks: StudentTask[] = [
   {
-    id: 1,
-    title: 'Регистрация на Онлайн-университете',
-    minutes: 3,
-    studentDone: false,
-    ouDone: false,
+    id: "reg-ou",
+    title: "Регистрация на Онлайн-университете",
+    duration: "3 минуты",
+    status: "not_done",
+    ouUrl: "https://corpuniver.rt.ru",
   },
   {
-    id: 2,
-    title: 'Твой старт в ГАПе',
-    minutes: 3,
-    studentDone: false,
-    ouDone: true,
+    id: "start-gap",
+    title: "Твой старт в ГАП",
+    duration: "3 минуты",
+    status: "not_done",
+    ouUrl:
+      "https://corpuniver.rt.ru/view_doc.html?mode=course&object_id=7571413597929568936",
   },
   {
-    id: 3,
-    title: 'Добро пожаловать в Ростелеком',
-    minutes: 7,
-    studentDone: false,
-    ouDone: false,
+    id: "welcome-b2c",
+    title: "Добро пожаловать в команду B2C",
+    duration: "7 минут",
+    status: "not_done",
+    ouUrl:
+      "https://corpuniver.rt.ru/view_doc.html?mode=course&object_id=7102912462002265625",
   },
   {
-    id: 4,
-    title: 'Техника продаж',
-    minutes: 5,
-    studentDone: true,
-    ouDone: true,
+    id: "home-internet",
+    title: "Домашний интернет от Ростелекома",
+    duration: "5 минут",
+    status: "not_done",
+    ouUrl:
+      "https://corpuniver.rt.ru/view_doc.html?mode=course&object_id=7103170620150908832",
+  },
+  {
+    id: "wink",
+    title: "Wink — территория развлечений",
+    duration: "5 минут",
+    status: "not_done",
+    ouUrl:
+      "https://corpuniver.rt.ru/view_doc.html?mode=course&object_id=7102912031257477550",
+  },
+  {
+    id: "sales-tech",
+    title: "Техника продаж",
+    duration: "5 минут",
+    status: "not_done",
+    ouUrl:
+      "https://corpuniver.rt.ru/view_doc.html?mode=course&object_id=7248964612188674398",
   },
 ];
 
