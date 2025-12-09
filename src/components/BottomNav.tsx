@@ -1,43 +1,36 @@
-import React from 'react';
+import React from "react";
+import "../styles.css";
 
-type Props = {
-  active: 'home' | 'schedule' | 'messages' | 'files';
-  onChange?: (tab: Props['active']) => void;
-};
+export type BottomTab = "home" | "schedule" | "messages" | "files";
 
-export const BottomNav: React.FC<Props> = ({ active, onChange }) => {
-  const makeHandler = (tab: Props['active']) => () => onChange?.(tab);
+interface BottomNavProps {
+  active: BottomTab;
+  onChange: (tab: BottomTab) => void;
+}
+
+export const BottomNav: React.FC<BottomNavProps> = ({ active, onChange }) => {
+  const makeBtn = (tab: BottomTab, label: string, icon: string) => (
+    <button
+      key={tab}
+      type="button"
+      className={
+        "bottom-nav-btn" + (active === tab ? " bottom-nav-btn--active" : "")
+      }
+      onClick={() => onChange(tab)}
+    >
+      <span className="bottom-nav-icon" aria-hidden="true">
+        {icon}
+      </span>
+      <span className="bottom-nav-label">{label}</span>
+    </button>
+  );
 
   return (
-    <div className="bottom-nav">
-      <button
-        aria-label="Дом"
-        style={{ opacity: active === 'home' ? 1 : 0.5 }}
-        onClick={makeHandler('home')}
-      >
-        📝
-      </button>
-      <button
-        aria-label="Таблица"
-        style={{ opacity: active === 'schedule' ? 1 : 0.5 }}
-        onClick={makeHandler('schedule')}
-      >
-        📅
-      </button>
-      <button
-        aria-label="Сообщения"
-        style={{ opacity: active === 'messages' ? 1 : 0.5 }}
-        onClick={makeHandler('messages')}
-      >
-        📩
-      </button>
-      <button
-        aria-label="Файлы"
-        style={{ opacity: active === 'files' ? 1 : 0.5 }}
-        onClick={makeHandler('files')}
-      >
-        📎
-      </button>
-    </div>
+    <nav className="bottom-nav">
+      {makeBtn("home", "Домой", "🏠")}
+      {makeBtn("schedule", "Расписание", "📅")}
+      {makeBtn("messages", "Сообщения", "✉️")}
+      {makeBtn("files", "Файлы", "📎")}
+    </nav>
   );
 };
