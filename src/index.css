@@ -18,6 +18,13 @@ body {
   background: #05001a;
   /* убираем flex-центрирование, чтобы экран стоял «прибитым» к верху */
 }
+body,
+button,
+input,
+textarea {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
 
 #root {
   width: 100%;

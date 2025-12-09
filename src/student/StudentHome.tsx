@@ -83,10 +83,9 @@ export const StudentHome: React.FC = () => {
   return (
     <div className="student-root">
       <header className="student-header">
-        <div className="ou-badge">
-          <span>онлайн университет</span>
-          <span className="ou-b2c">B2C</span>
-        </div>
+      <div className="ou-logo-wrap">
+        <img src={ouLogo} alt="Онлайн университет B2C" className="ou-logo" />
+      </div>
 
         <h1 className="student-title">Привет, Ирен 👋</h1>
         <p className="student-subtitle">Добро пожаловать в Ростелеком!</p>
