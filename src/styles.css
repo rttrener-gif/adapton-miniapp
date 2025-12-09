@@ -1,78 +1,205 @@
-:root {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-      "Segoe UI", sans-serif;
-    color: #111827;
-    background-color: #0f172a;
-  }
-  
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-  
-  body {
-    margin: 0;
-  }
-  
-  .app-root {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-  }
-  
-  /* Мобильная карточка под iPhone 14 */
-  .student-shell {
-    width: 390px;
-    max-width: 100%;
-    height: 844px;
-    margin: 16px;
-    border-radius: 32px;
-    overflow: hidden;
-    background: radial-gradient(circle at 0% 100%, #ff8a3c, #7b3cff 45%, #4a00e0);
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Белые карточки */
-  .card {
-    background: #ffffff;
-    border-radius: 24px;
-    padding: 16px 18px;
-    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.16);
-  }
-  
-  /* Нижнее меню */
-  .bottom-nav {
-    height: 76px;
-    background: #020617;
-    border-radius: 24px 24px 0 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-  
-  .bottom-nav button {
-    background: transparent;
-    border: none;
-    color: #e5e7eb;
-    font-size: 26px;
-  }
-  
-  /* Тренерский layout */
-  .trainer-shell {
-    flex: 1;
-    background: #f3f4f6;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .trainer-main-card {
-    background: #ffffff;
-    border-radius: 24px;
-    padding: 24px;
-    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
-  }
+/* Контейнер «телефона» */
+
+.student-root {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #5b1ee5 0%, #f97316 100%);
+  border-radius: 24px;
+  padding: 20px 16px 24px;
+  color: #ffffff;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* Шапка */
+.ou-logo-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.ou-logo {
+  height: 28px;      /* подгони размер под макет */
+  width: auto;
+  display: block;
+}
+
+.student-header {
+  margin-bottom: 16px;
+}
+
+.ou-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.85);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.ou-b2c {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #f97316;
+}
+
+.student-title {
+  margin-top: 16px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.student-subtitle {
+  margin-top: 4px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* Карточка «Первый день обучения» */
+
+.student-day-card {
+  margin-top: 18px;
+  padding: 14px 14px 12px;
+  border-radius: 18px;
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.student-day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+
+.student-day-time {
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+.student-day-progress {
+  margin-top: 10px;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.4);
+  overflow: hidden;
+}
+
+.student-day-progress-bar {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #22c55e 0%, #bef264 100%);
+}
+
+/* Блок задач */
+
+.student-main {
+  margin-top: 18px;
+}
+
+.student-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.student-link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #e5e7eb;
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.student-tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Карточка задачи */
+
+.task-card {
+  width: 100%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 18px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f9fafb;
+  color: #111827;
+  text-align: left;
+  transition: transform 0.1s ease, box-shadow 0.1s ease,
+    background-color 0.1s ease;
+}
+
+.task-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.25);
+}
+
+.task-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.task-circle {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  border: 2px solid #8b5cf6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.task-check {
+  font-size: 14px;
+  color: #22c55e;
+}
+
+.task-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.task-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.task-subtitle {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.task-right {
+  display: flex;
+  align-items: center;
+}
+
+.task-double-check {
+  display: flex;
+  gap: 4px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #d1d5db;
+}
+
+.dot.done {
+  background: #22c55e;
+}

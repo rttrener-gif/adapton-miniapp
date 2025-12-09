@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import "../styles.css";
+import ouLogo from "../assets/logo.svg";
 import { TaskCard } from "../components/TaskCard";
 
 export type StudentTask = {
